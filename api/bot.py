@@ -72,6 +72,23 @@ async def start_prediction(message: Message, state: FSMContext):
         await message.answer("Unable to generate prediction: ")
         await state.clear()
 
+@router.message(Command("predict2"))
+async def cmd_predict(message: types.Message):
+    parts = message.text.split()
+    if len(parts) != 3:
+        await message.reply("Usage: /predict2 <payment_inc_ratio> <dti>")
+        return
+
+    try:
+        payment_inc_ratio = float(parts[1])
+        dti = float(parts[2])
+    except ValueError:
+        await message.reply("Both payment_inc_ratio and dti must be numbers.")
+        return
+
+    await message.answer(format_prediction({
+        'payment_inc_ratio':payment_inc_ratio, 
+        'dti': dti}))
 
 
 dispatcher.include_router(router)
