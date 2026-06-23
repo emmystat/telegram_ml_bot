@@ -55,7 +55,8 @@ class PredictionRequest(BaseModel):
 @app.post('/predict')
 async def predict(data: PredictionRequest):
     prob = model.predict_proba(pd.DataFrame(
-        [data.model_dump()]
+        [dict(payment_inc_ratio=data.payment_inc_ratio,
+              dti=data.dti)]
     ))[0,1]
     return {
         'probability': prob,
