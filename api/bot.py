@@ -55,11 +55,12 @@ async def start_prediction(message: Message, state: FSMContext):
 @router.message(PredictionState.dti)
 async def start_prediction(message: Message, state: FSMContext):
     try:
-        dti = float(message.text)
+        dti = float(message.text.strip())
+        await state.update_data(dti=dti)
         data = await state.get_data()
         payload = {
             'payment_inc_ratio': data['payment_inc_ratio'],
-            'dti': dti,
+            'dti': data['dti'],
         }
         
         await message.answer(
@@ -68,6 +69,7 @@ async def start_prediction(message: Message, state: FSMContext):
         await state.clear()
     except ValueError:
         await message.answer("Please enter a valid number: ")
+        await state.clear()
     except Exception:
         await message.answer("Unable to generate prediction: ")
         await state.clear()
