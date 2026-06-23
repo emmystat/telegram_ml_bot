@@ -46,7 +46,7 @@ async def start_prediction(message: Message, state: FSMContext):
 async def start_prediction(message: Message, state: FSMContext):
     try:
         payment_inc_ratio = float(message.text)
-        await state.update_data(payment_inc_ratio)
+        await state.update_data(payment_inc_ratio=payment_inc_ratio)
         await state.set_state(PredictionState.dti)
         await message.answer("Enter dti: ")
     except ValueError:
