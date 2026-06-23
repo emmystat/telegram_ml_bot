@@ -43,7 +43,7 @@ async def start_prediction(message: Message, state: FSMContext):
     await message.answer("Enter payment_inc_ratio: ")
 
 @router.message(PredictionState.payment_inc_ratio)
-async def start_prediction(message: Message, state: FSMContext):
+async def get_payment_inc_ratio(message: Message, state: FSMContext):
     try:
         payment_inc_ratio = float(message.text)
         await state.update_data(payment_inc_ratio=payment_inc_ratio)
@@ -53,7 +53,7 @@ async def start_prediction(message: Message, state: FSMContext):
         await message.answer("Please enter a valid number: ")
 
 @router.message(PredictionState.dti)
-async def start_prediction(message: Message, state: FSMContext):
+async def get_dti(message: Message, state: FSMContext):
     try:
         dti = float(message.text.strip())
         await state.update_data(dti=dti)
