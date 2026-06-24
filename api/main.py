@@ -60,5 +60,5 @@ async def predict(data: PredictionRequest):
     ))[0,1]
     return {
         'probability': prob,
-        'actual': np.where(prob>.5,"default","paid off")
+        'actual': str(np.where(prob>.5,"default","paid off"))
     }
