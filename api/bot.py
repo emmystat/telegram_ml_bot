@@ -30,7 +30,7 @@ router = Router()
 def format_prediction(data: dict) -> str:
     prob = model.predict_proba(pd.DataFrame([data]))[0,1]
 
-    return f"Prediction: {np.where(prob>.5,"default","paid off")} \nprobability: {prob:.2%}"
+    return f"Prediction: {np.where(prob>.5,"default","paid off")} \ndefault probability: {prob:.2%}"
 
 class PredictionState(StatesGroup):
     payment_inc_ratio = State()
