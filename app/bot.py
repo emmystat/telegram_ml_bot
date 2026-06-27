@@ -92,9 +92,9 @@ async def cmd_predict(message: types.Message):
         'payment_inc_ratio':payment_inc_ratio, 
         'dti': dti}))
 
-
+"""
 @router.message()
 async def fallback(message:Message):
     await message.answer("Invalid command. Use /predict to start prediction")
-
+"""
 dispatcher.include_router(router)
