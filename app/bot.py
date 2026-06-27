@@ -69,7 +69,7 @@ async def get_dti(message: Message, state: FSMContext):
         await state.clear()
     except ValueError:
         await message.answer("Please enter a valid number: ")
-        await state.clear()
+        #await state.clear()
     except Exception:
         await message.answer("Unable to generate prediction: ")
         await state.clear()
@@ -92,5 +92,9 @@ async def cmd_predict(message: types.Message):
         'payment_inc_ratio':payment_inc_ratio, 
         'dti': dti}))
 
+
+@router.message()
+async def fallback(message:Message):
+    await message.answer("Invalid command. Use /predict to start prediction")
 
 dispatcher.include_router(router)
